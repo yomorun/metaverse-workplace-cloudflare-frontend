@@ -40,7 +40,7 @@
 
 export const onRequest = (context) => {
   const { request, env, params } = context;
-  html_content = "YoMo:<br/>"
+  let html_content = "YoMo:<br/>"
   html_content += '<p> Colo: ' + request.cf.colo + '</p>';
   html_content += '<p> Country: ' + request.cf.country + '</p>';
   html_content += '<p> City: ' + request.cf.city + '</p>';
