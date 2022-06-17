@@ -1,0 +1,27 @@
+{
+  "name": "cccc",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "wrangler": "next build && next export && npx wrangler pages dev ./out"
+  },
+  "dependencies": {
+    "next": "12.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "wrangler": "^2.0.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.13.0",
+    "@types/node": "18.0.0",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "eslint": "8.17.0",
+    "eslint-config-next": "12.1.6",
+    "typescript": "4.7.3"
+  }
+}
