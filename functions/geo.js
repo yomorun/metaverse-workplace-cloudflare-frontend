@@ -40,18 +40,18 @@
 
 export const onRequest = (context) => {
   const { request, env, params } = context;
-  let html_content = "YoMo:<br/>"
-  html_content += '<p> Colo: ' + request.cf.colo + '</p>';
-  html_content += '<p> Country: ' + request.cf.country + '</p>';
-  html_content += '<p> City: ' + request.cf.city + '</p>';
-  html_content += '<p> Continent: ' + request.cf.continent + '</p>';
-  html_content += '<p> Latitude: ' + request.cf.latitude + '</p>';
-  html_content += '<p> Longitude: ' + request.cf.longitude + '</p>';
-  html_content += '<p> PostalCode: ' + request.cf.postalCode + '</p>';
-  html_content += '<p> MetroCode: ' + request.cf.metroCode + '</p>';
-  html_content += '<p> Region: ' + request.cf.region + '</p>';
-  html_content += '<p> RegionCode: ' + request.cf.regionCode + '</p>';
-  html_content += '<p> Timezone: ' + request.cf.timezone + '</p>';
-  html_content += '<i>' + new Date().toISOString() + '</i>'
+  let html_content = "*YoMo*:\r\n"
+  html_content += 'Colo: ' + request.cf.colo + '\r\n';
+  html_content += 'Country: ' + request.cf.country + '\r\n';
+  html_content += 'City: ' + request.cf.city + '\r\n';
+  html_content += 'Continent: ' + request.cf.continent + '\r\n';
+  html_content += 'Latitude: ' + request.cf.latitude + '\r\n';
+  html_content += 'Longitude: ' + request.cf.longitude + '\r\n';
+  html_content += 'PostalCode: ' + request.cf.postalCode + '\r\n';
+  html_content += 'MetroCode: ' + request.cf.metroCode + '\r\n';
+  html_content += 'Region: ' + request.cf.region + '\r\n';
+  html_content += 'RegionCode: ' + request.cf.regionCode + '\r\n';
+  html_content += 'Timezone: ' + request.cf.timezone + '\r\n';
+  html_content += 'JSTime: ' + new Date().toISOString()
   return new Response(html_content)
 }

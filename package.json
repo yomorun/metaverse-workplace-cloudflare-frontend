@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "wrangler": "next build && next export && npx wrangler pages dev ./out"
+    "wrangler": "npx wrangler pages dev ./out"
   },
   "dependencies": {
     "next": "12.1.6",
