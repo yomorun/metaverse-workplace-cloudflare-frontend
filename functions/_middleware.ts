@@ -1,6 +1,14 @@
 import countryRegion from '../libs/amesh.json';
 
-export async function onRequest(context: any) {
+const errorHandler = async (context: any) => {
+    try {
+      return await context.next();
+    } catch (err: any) {
+      return new Response(`${err.message}\n${err.stack}`, { status: 500 });
+    }
+  };
+
+const countryHandler = async function onRequest(context: any) {
     let res, country, mesh;
 
     try {
@@ -11,9 +19,11 @@ export async function onRequest(context: any) {
         }
         country = request?.cf?.country;
         console.log(country)
-        // mesh = getMeshID(country)
-        mesh = "fra.x.yomo.dev"
-        res = await context.next();
+        mesh = getMeshID(country)
+        const originalRes = await context.next();
+        const responseText = await originalRes.text();
+        res = new Response(responseText);
+        res.headers.set('content-type', 'text/html;charset=UTF-8');
         res.headers.set('x-yomo-country', country);
         res.headers.set('x-yomo-mesh', mesh);
         res.headers.append('Set-Cookie', `country=${country}; Path='/';`);
@@ -23,6 +33,8 @@ export async function onRequest(context: any) {
         res = new Response('Oops!', { status: 500 });
     }
 }
+
+export const onRequest = [errorHandler, countryHandler];
 
 // get mesh ID by country
 function getMeshID(country: string | undefined): string {
