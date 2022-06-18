@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useEffect } from 'react'
+import Cookies from 'js-cookie';
 
 import FloorLinks from '../components/minor/floor-links'
 import Guide from '../components/minor/guide'
@@ -23,8 +24,8 @@ const Scene = dynamic(() => import('../components/scene'), { ssr: false })
 // }
 
 const Home: Page<Location> = () => {
-  const country = "Local"
-  const region = "us.x.yomo.dev"
+  const country =  Cookies.get('country') || "Local"
+  const region = Cookies.get('region') || "us.x.yomo.dev"
   const setLocationState = useSetRecoilState(locationState)
   const setIframePageState = useSetRecoilState(iframePageState)
 
