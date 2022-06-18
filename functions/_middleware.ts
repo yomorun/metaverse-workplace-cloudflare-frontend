@@ -11,7 +11,8 @@ export async function onRequest(context: any) {
         }
         country = request?.cf?.country;
         console.log(country)
-        mesh = getMeshID(country)
+        // mesh = getMeshID(country)
+        mesh = "fra.x.yomo.dev"
         res = await context.next();
         res.headers.set('x-yomo-country', country);
         res.headers.set('x-yomo-mesh', mesh);
