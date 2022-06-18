@@ -22,7 +22,9 @@ const Scene = dynamic(() => import('../components/scene'), { ssr: false })
 //   }
 // }
 
-const Home: Page<Location> = ({ country, region }) => {
+const Home: Page<Location> = () => {
+  const country = "Local"
+  const region = "us.x.yomo.dev"
   const setLocationState = useSetRecoilState(locationState)
   const setIframePageState = useSetRecoilState(iframePageState)
 
