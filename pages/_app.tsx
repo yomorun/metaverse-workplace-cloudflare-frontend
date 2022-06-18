@@ -57,7 +57,10 @@ function Adapter({
     const setMeState = useSetRecoilState(meState)
 
     useEffect(() => {
-        setMeState({ name: 'cccc', image: '/avatar.png' })
+        setMeState({
+            name: Math.random().toString(36).slice(2, 10)
+            , image: '/avatar.png'
+        })
     }, [])
 
     return children
