@@ -1,4 +1,5 @@
-import { RtcTokenBuilder } from 'agora-access-token';
+// import { RtcTokenBuilder } from 'agora-access-token';
+import { RtcTokenBuilder } from '../agora/RtcTokenBuilder';
 
 export const onRequestPost = async (context: { request: any; env: any; params: any }) => {
   console.log(1234444444)

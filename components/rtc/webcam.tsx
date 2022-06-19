@@ -1,24 +1,22 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
 import AgoraRTC, {
     IAgoraRTCClient,
     ICameraVideoTrack,
-    IMicrophoneAudioTrack,
-    IRemoteVideoTrack,
-    IRemoteAudioTrack,
-    IRemoteTrack,
+    IMicrophoneAudioTrack, IRemoteAudioTrack,
+    IRemoteTrack, IRemoteVideoTrack
 } from 'agora-rtc-sdk-ng'
 import cn from 'classnames'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Subject } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
 
 import Spin from '../minor/spin'
 
-import { useSetRecoilState, useRecoilValue } from 'recoil'
-import { trackMapState, mePositionState, matePositionMapState, tipState } from '../../store/atom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { matePositionMapState, mePositionState, tipState, trackMapState } from '../../store/atom'
 import { onlineCountState } from '../../store/selector'
 
-import { getRtcToken } from '../../libs/request'
 import { calcDistance, checkMobileDevice } from '../../libs/helper'
+import { getRtcToken } from '../../libs/request'
 
 import type { Position, TrackMapValue } from '../../types'
 

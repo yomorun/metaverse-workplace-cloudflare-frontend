@@ -9,15 +9,17 @@
     "lint": "next lint",
     "export": "next build && next export",
     "wrangler": "npx wrangler pages dev ./out",
-    "postinstall": "patch-package"
+    "postinstall": "echo 'patch-package suspended by C.C.'"
   },
   "dependencies": {
-    "agora-access-token": "^2.0.4",
     "agora-rtc-sdk-ng": "^4.7.1",
     "autoprefixer": "^10.3.7",
     "axios": "^0.22.0",
+    "buffer": "^6.0.3",
     "classnames": "^2.3.1",
+    "crc-32": "^1.2.2",
     "crypto-es": "^1.2.7",
+    "cuint": "^0.2.2",
     "js-cookie": "^3.0.1",
     "jsc8": "^0.16.3",
     "next": "12.1.6",
