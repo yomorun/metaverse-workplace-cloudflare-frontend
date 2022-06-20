@@ -28,17 +28,13 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
     this.messages = {};
     this.salt = randomInt;
     this.ts = Math.floor(new Date() / 1000) + (24 * 3600);
-	this.salt = 3598911439;
-	this.ts = 1655790021;
     if (uid === 0) {
         this.uid = "";
     } else {
         this.uid = `${uid}`;
     }
-    console.log(this)
 
     this.build = function () {
-        console.log(token)
         var m = Message({
             salt: token.salt
             , ts: token.ts
@@ -51,9 +47,6 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
             Buffer.from(token.uid, 'utf8'), 
                 m]);
 
-                console.log(m)
-        console.debug("___toSign", toSign)
-        console.log("___appCertificate", token.appCertificate)
         var signature = encodeHMac(token.appCertificate, toSign);
         console.log(">>>>signature", signature);
         var crc_channel = UINT32(crc32.str(token.channelName)).and(UINT32(0xffffffff)).toNumber();
@@ -68,7 +61,6 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
     }
 
     this.addPriviledge = function (priviledge, expireTimestamp) {
-        console.log('addPriviledge', priviledge, expireTimestamp)
         token.messages[priviledge] = expireTimestamp;
     };
 
@@ -94,7 +86,6 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
             this.messages = msgs.messages;
             
         } catch (err) {
-            console.log(err);
             return false;
         }
         
@@ -161,7 +152,6 @@ var ByteBuf = function () {
     };
 
     that.putString = function (str) {
-        console.log("^^^^", str);
         return that.putBytes(Buffer.from(str));
     };
 
@@ -240,7 +230,6 @@ var ReadByteBuf = function (bytes) {
     return that;
 }
 var AccessTokenContent = function (options) {
-    console.log("---------", options)
     options.pack = function () {
         var out = new ByteBuf();
         return out.putString(options.signature)

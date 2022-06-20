@@ -37,7 +37,6 @@ class RtcTokenBuilder {
     * @return The new Token.
     */
     static buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs) {
-        privilegeExpiredTs = 1655792248
         console.log({appID, appCertificate, channelName, uid, role, privilegeExpiredTs})
         return this.buildTokenWithAccount(appID, appCertificate, channelName, uid, role, privilegeExpiredTs)
     }

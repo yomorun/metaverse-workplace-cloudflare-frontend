@@ -51,7 +51,6 @@ export const getRtcToken = async (uid: string, channelName: string, role: string
     } else {
         try {
             const response: any = await request({
-                // url: 'https://vhq.yomo.run/api/rtctoken',
                 url: '/rtctoken',
                 method: 'post',
                 data: { uid, channelName, role },
