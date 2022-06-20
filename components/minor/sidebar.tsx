@@ -1,16 +1,18 @@
-import Link from 'next/link'
 import cn from 'classnames'
-import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { useRecoilValue } from 'recoil'
-import { onlineState, locationState } from '../../store/atom'
+import { locationState, onlineState } from '../../store/atom'
 import { onlineCountState } from '../../store/selector'
 
 const signList = [
-    'Use [W/A/S/D] control moving',
-    'Visit YoMo on Github',
-    'Database is provided by Macrometa',
-    'WebRTC is provided by Agora.io',
+    'Use [W/A/S/D] control moving 🎹',
+    'Realtime features is built by YoMo 🦖',
+    'Checkout YoMo on Github 🐙',
+    'Website is hosted on Cloudflare Pages 🚀',
+    'Database is sponsored by Macrometa 🔐',
+    'WebRTC is sponsored by Agora.io ⚡️',
 ]
 
 const Sidebar = () => {
