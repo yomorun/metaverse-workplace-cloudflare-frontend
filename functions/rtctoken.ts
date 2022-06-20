@@ -24,7 +24,11 @@ export const onRequestPost = async (context: { request: any; env: any; params: a
         role,
         privilegeExpiredTs
       )
-      return new Response(JSON.stringify({ token, privilegeExpiredTs, channelName }))
+      return new Response(
+        JSON.stringify({ token, privilegeExpiredTs, channelName }),
+        {
+          headers: { "Content-Type": "application/json" },
+        })
     } catch (error) {
       console.error(error)
     }
