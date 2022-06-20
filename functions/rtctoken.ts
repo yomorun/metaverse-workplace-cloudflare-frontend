@@ -24,7 +24,7 @@ export const onRequestPost = async (context: { request: any; env: any; params: a
         role,
         privilegeExpiredTs
       )
-      return new Response(token)
+      return new Response(JSON.stringify({ token, privilegeExpiredTs, channelName }))
     } catch (error) {
       console.error(error)
     }
