@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {}
+
+#__next {
+  display       : flex;
+  flex-direction: column;
+  min-height    : 100vh;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  margin     : 0;
+  font-size  : 24px;
+  font-family: 'Exo 2';
+  overflow   : scroll;
+}
+
+button {
+  outline: none;
+}
+
+button,
+input {
+  font-family: 'Exo 2';
+}
+
+.w-1800px {
+  width: 1800px;
+}
+
+.min-w-1800px {
+  min-width: 1800px;
+}
+
+.h-900px {
+  height: 900px;
+}
+
+.scene-scale-120 {
+  transform: scale(1.2)
+}
+
+.scene-scale-110 {
+  transform: scale(1.1)
+}
+
+.scene-scale-106 {
+  transform: scale(1.06)
+}
+
+.scene-scale-105 {
+  transform: scale(1.05)
+}
+
+.scene-scale-100 {
+  transform: scale(1)
+}
+
+.scene-scale-95 {
+  transform: scale(0.95)
+}
+
+.scene-scale-92 {
+  transform: scale(0.92)
+}
+
+.scene-scale-91 {
+  transform: scale(0.91)
+}
+
+.scene-scale-90 {
+  transform: scale(0.9)
+}
+
+.scene-scale-85 {
+  transform: scale(0.85)
+}
+
+.scene-scale-80 {
+  transform: scale(0.8)
+}
+
+.scene-scale-79 {
+  transform: scale(0.79)
+}
+
+.scene-scale-78 {
+  transform: scale(0.78)
+}
+
+.scene-scale-77 {
+  transform: scale(0.77)
+}
+
+.scene-scale-76 {
+  transform: scale(0.76)
+}
+
+.scene-scale-75 {
+  transform: scale(0.75)
+}
+
+.scene-scale-70 {
+  transform: scale(0.7)
+}
+
+.scene-scale-65 {
+  transform: scale(0.65)
+}
+
+.scene-scale-60 {
+  transform: scale(0.6)
+}
+
+.scene-scale-50 {
+  transform: scale(0.5)
+}
+
+.scene-animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity  : .5;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity  : 0;
+  }
+}
+
+.ym-text-blue {
+  color: #68E4B0;
+}
+
+.ym-text-yellow {
+  color: #F1D671;
+}
+
+.ym-text-dark {
+  color: #303756;
+}
+
+.bg-online {
+  background-color: greenyellow;
+}
+
+.bg-offline {
+  background-color: palevioletred;
+}
+
+.wall {
+  box-sizing: content-box;
+  border    : 10px solid #93511E;
+}
+
+.bg-color-home {
+  background-color: #619C31;
+}
+
+.bg-color-newyear {
+  background-color: #CBDCFD;
+}
+
+.movement-transition {
+  transition-property       : transform;
+  transition-timing-function: linear;
+  transition-duration       : 200ms;
+}
+
+.icon-sidebar {
+  z-index: 100;
+  width: 20px;
+}
+
+@media (max-width: 639px) {
+  .sm-bg-lectern {
+    background-image   : url("/bg-sm-lectern.png");
+    background-size    : 100% 100%;
+    background-position: top;
+  }
+
+  .sm-grid {
+    width    : 100%;
+    display  : flex;
+    flex-wrap: wrap;
+  }
+
+  .sm-grid-card {
+    margin-left: 10px;
+    margin-top : 40px;
+  }
+
+  .wall {
+    border: none;
+  }
+}
+
+@media (min-width: 1023px) {
+  .ring-cannot-join::before {
+    content: "No one is around you, so you can't join and publish local streams";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 100px 100px;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+  }
+}

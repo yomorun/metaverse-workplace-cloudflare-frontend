@@ -1,0 +1,199 @@
+diff --git a/node_modules/agora-access-token/src/AccessToken.js b/node_modules/agora-access-token/src/AccessToken.js
+index a11c4b0..9f93c6d 100644
+--- a/node_modules/agora-access-token/src/AccessToken.js
++++ b/node_modules/agora-access-token/src/AccessToken.js
+@@ -1,4 +1,5 @@
+-var crypto = require('crypto');
++// var crypto = require('crypto');
++var crypto = require('crypto-es');
+ var crc32 = require('crc-32');
+ var UINT32 = require('cuint').UINT32;
+ var version = "006";
+@@ -31,7 +32,7 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
+             [Buffer.from(token.appID, 'utf8'),
+             Buffer.from(token.channelName, 'utf8'),
+             Buffer.from(token.uid, 'utf8'),
+-            m]);
++                m]);
+ 
+         var signature = encodeHMac(token.appCertificate, toSign);
+         var crc_channel = UINT32(crc32.str(token.channelName)).and(UINT32(0xffffffff)).toNumber();
+@@ -52,7 +53,7 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
+     this.fromString = function (originToken) {
+         try {
+             originVersion = originToken.substr(0, VERSION_LENGTH);
+-            if(originVersion != version) {
++            if (originVersion != version) {
+                 return false;
+             }
+             var originAppID = originToken.substr(VERSION_LENGTH, (VERSION_LENGTH + APP_ID_LENGTH));
+@@ -173,7 +174,7 @@ var ByteBuf = function () {
+ }
+ 
+ 
+-var ReadByteBuf = function(bytes) {
++var ReadByteBuf = function (bytes) {
+     var that = {
+         buffer: bytes
+         , position: 0
+@@ -203,7 +204,7 @@ var ReadByteBuf = function(bytes) {
+     that.getTreeMapUInt32 = function () {
+         var map = {};
+         var len = that.getUint16();
+-        for( var i = 0; i < len; i++) {
++        for (var i = 0; i < len; i++) {
+             var key = that.getUint16();
+             var value = that.getUint32();
+             map[key] = value;
+@@ -238,7 +239,7 @@ var Message = function (options) {
+     return options;
+ }
+ 
+-var unPackContent = function(bytes) {
++var unPackContent = function (bytes) {
+     var readbuf = new ReadByteBuf(bytes);
+     return AccessTokenContent({
+         signature: readbuf.getString(),
+@@ -248,7 +249,7 @@ var unPackContent = function(bytes) {
+     });
+ }
+ 
+-var unPackMessages = function(bytes) {
++var unPackMessages = function (bytes) {
+     var readbuf = new ReadByteBuf(bytes);
+     return Message({
+         salt: readbuf.getUint32(),
+diff --git a/node_modules/agora-access-token/src/DynamicKey5.js b/node_modules/agora-access-token/src/DynamicKey5.js
+index abee33e..b4d8302 100755
+--- a/node_modules/agora-access-token/src/DynamicKey5.js
++++ b/node_modules/agora-access-token/src/DynamicKey5.js
+@@ -1,21 +1,22 @@
+-var crypto = require('crypto');
++// var crypto = require('crypto');
++var crypto = require('crypto-es');
+ 
+ var version = "005";
+ var noUpload = "0";
+ var audioVideoUpload = "3";
+ 
+ var generatePublicSharingKey = function (appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs) {
+-    channelName=channelName.toString();
++    channelName = channelName.toString();
+     return generateDynamicKey(appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs, null, PUBLIC_SHARING_SERVICE);
+ };
+ 
+ var generateRecordingKey = function (appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs) {
+-    channelName=channelName.toString();
++    channelName = channelName.toString();
+     return generateDynamicKey(appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs, null, RECORDING_SERVICE);
+ };
+ 
+ var generateMediaChannelKey = function (appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs) {
+-    channelName=channelName.toString();
++    channelName = channelName.toString();
+     return generateDynamicKey(appID, appCertificate, channelName, unixTs, randomInt, uid, expiredTs, null, MEDIA_CHANNEL_SERVICE);
+ };
+ 
+@@ -34,7 +35,8 @@ var generateDynamicKey = function (appID, appCertificate, channelName, unixTs, r
+         , unixTs: unixTs
+         , salt: randomInt
+         , expiredTs: expiredTs
+-        , extra: extra}).pack();
++        , extra: extra
++    }).pack();
+     return version + content.toString('base64');
+ };
+ 
+@@ -47,7 +49,7 @@ module.exports.generateMediaChannelKey = generateMediaChannelKey;
+ module.exports.generateInChannelPermissionKey = generateInChannelPermissionKey;
+ module.exports.generateDynamicKey = generateDynamicKey;
+ 
+-var generateSignature5 = function(appCertificate, serviceType, appID, unixTs, randomInt, channelName, uid, expiredTs, extra) {
++var generateSignature5 = function (appCertificate, serviceType, appID, unixTs, randomInt, channelName, uid, expiredTs, extra) {
+     // decode hex to avoid case problem
+     var rawAppID = hexDecode(appID);
+     var rawAppCertificate = hexDecode(appCertificate);
+@@ -67,15 +69,15 @@ var generateSignature5 = function(appCertificate, serviceType, appID, unixTs, ra
+     return encodeHMac(rawAppCertificate, toSign);
+ };
+ 
+-var encodeHMac = function(key, message) {
++var encodeHMac = function (key, message) {
+     return crypto.createHmac('sha1', key).update(message).digest('hex').toUpperCase();
+ };
+ 
+-var hexDecode = function(str) {
++var hexDecode = function (str) {
+     return Buffer.from(str, 'hex');
+ };
+ 
+-var ByteBuf = function() {
++var ByteBuf = function () {
+     var that = {
+         buffer: Buffer.alloc(1024)
+         , position: 0
+@@ -83,36 +85,36 @@ var ByteBuf = function() {
+ 
+     that.buffer.fill(0);
+ 
+-    that.pack = function() {
++    that.pack = function () {
+         var out = Buffer.alloc(that.position);
+         that.buffer.copy(out, 0, 0, out.length);
+         return out;
+     };
+ 
+-    that.putUint16 = function(v) {
++    that.putUint16 = function (v) {
+         that.buffer.writeUInt16LE(v, that.position);
+         that.position += 2;
+         return that;
+     };
+ 
+-    that.putUint32 = function(v) {
++    that.putUint32 = function (v) {
+         that.buffer.writeUInt32LE(v, that.position);
+         that.position += 4;
+         return that;
+     };
+ 
+-    that.putBytes = function(bytes) {
++    that.putBytes = function (bytes) {
+         that.putUint16(bytes.length);
+         bytes.copy(that.buffer, that.position);
+         that.position += bytes.length;
+         return that;
+     };
+ 
+-    that.putString = function(str) {
++    that.putString = function (str) {
+         return that.putBytes(Buffer.from(str));
+     };
+ 
+-    that.putTreeMap = function(map) {
++    that.putTreeMap = function (map) {
+         if (!map) {
+             that.putUint16(0);
+             return that;
+@@ -130,8 +132,8 @@ var ByteBuf = function() {
+     return that;
+ }
+ 
+-var DynamicKey5Content = function(options) {
+-    options.pack = function() {
++var DynamicKey5Content = function (options) {
++    options.pack = function () {
+         var out = ByteBuf();
+         return out.putUint16(options.serviceType)
+             .putString(options.signature)
+@@ -146,8 +148,8 @@ var DynamicKey5Content = function(options) {
+     return options;
+ }
+ 
+-var Message = function(options) {
+-    options.pack = function() {
++var Message = function (options) {
++    options.pack = function () {
+         var out = ByteBuf();
+         return out.putUint16(options.serviceType)
+             .putBytes(options.appID)

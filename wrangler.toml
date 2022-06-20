@@ -6,3 +6,4 @@ usage_model = ''
 compatibility_flags = []
 workers_dev = true
 compatibility_date = "2022-06-17"
+node_compat = true
