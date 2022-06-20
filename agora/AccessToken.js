@@ -9,6 +9,16 @@ var randomInt = Math.floor(Math.random() * 0xFFFFFFFF);
 const VERSION_LENGTH = 3;
 const APP_ID_LENGTH = 32;
 
+function byteArrayToWordArray(ba) {
+	var wa = [],
+		i;
+	for (i = 0; i < ba.length; i++) {
+		wa[(i / 4) | 0] |= ba[i] << (24 - 8 * i);
+	}
+
+	return crypto.lib.WordArray.create(wa, ba.length);
+}
+
 var AccessToken = function (appID, appCertificate, channelName, uid) {
     console.debug("||", appID, appCertificate, channelName, uid);
     let token = this;
@@ -18,13 +28,17 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
     this.messages = {};
     this.salt = randomInt;
     this.ts = Math.floor(new Date() / 1000) + (24 * 3600);
+	this.salt = 3598911439;
+	this.ts = 1655790021;
     if (uid === 0) {
         this.uid = "";
     } else {
         this.uid = `${uid}`;
     }
+    console.log(this)
 
     this.build = function () {
+        console.log(token)
         var m = Message({
             salt: token.salt
             , ts: token.ts
@@ -37,14 +51,11 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
             Buffer.from(token.uid, 'utf8'), 
                 m]);
 
-        // // C.C. patch begin --->
-        // var token_appID = new TextEncoder().encode(token.appID);
-        // var token_channelName = new TextEncoder().encode(token.channelName);
-        // var token_uid = new TextEncoder().encode(token.uid);
-        // var toSign = new Uint8Array([...token_appID, ...token_channelName, ...token_uid])
-        // // C.C. patch done <---
-
+                console.log(m)
+        console.debug("___toSign", toSign)
+        console.log("___appCertificate", token.appCertificate)
         var signature = encodeHMac(token.appCertificate, toSign);
+        console.log(">>>>signature", signature);
         var crc_channel = UINT32(crc32.str(token.channelName)).and(UINT32(0xffffffff)).toNumber();
         var crc_uid = UINT32(crc32.str(token.uid)).and(UINT32(0xffffffff)).toNumber();
         var content = AccessTokenContent({
@@ -57,6 +68,7 @@ var AccessToken = function (appID, appCertificate, channelName, uid) {
     }
 
     this.addPriviledge = function (priviledge, expireTimestamp) {
+        console.log('addPriviledge', priviledge, expireTimestamp)
         token.messages[priviledge] = expireTimestamp;
     };
 
@@ -111,7 +123,7 @@ module.exports.priviledges = {
 
 var encodeHMac = function (key, message) {
     // CC Patch
-    return Buffer.from(crypto.HmacSHA256(message, key).toString(), "hex")
+    return Buffer.from(crypto.HmacSHA256(byteArrayToWordArray(message), key).toString(), "hex")
     // return crypto.createHmac('sha256', key).update(message).digest();
 };
 

@@ -2,11 +2,12 @@ import countryRegion from '../libs/amesh.json';
 
 const errorHandler = async (context: any) => {
     try {
-      return await context.next();
+        return await context.next();
     } catch (err: any) {
-      return new Response(`${err.message}\n${err.stack}`, { status: 500 });
+        console.error(err)
+        return new Response(`${err.message}\n${err.stack}`, { status: 500 });
     }
-  };
+};
 
 const countryHandler = async function onRequest(context: any) {
     let res, country, mesh;
