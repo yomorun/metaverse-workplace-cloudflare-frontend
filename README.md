@@ -1,3 +1,5 @@
+## A Metaverse Workplace deployed on the edge
+
 Open https://yona.pink to try out **fully geo-distributed edge architecture** open-sourced metaverse workplace.
 
 <img width="935" alt="image" src="https://user-images.githubusercontent.com/65603/174558770-7bc46926-6539-4078-8859-f675aa22afe4.png">
