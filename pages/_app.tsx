@@ -57,8 +57,15 @@ function Adapter({
     const setMeState = useSetRecoilState(meState)
 
     useEffect(() => {
+        // try get uid from localStorage, if not, generate and set
+        var uid = localStorage.getItem('uid') as string
+        if (!uid) {
+            uid = Math.random().toString(36).slice(2, 10)
+            console.log('>> generate new uid', uid)
+            localStorage.setItem('uid', uid)
+        }
         setMeState({
-            name: Math.random().toString(36).slice(2, 10)
+            name: uid
             , image: '/avatar.png'
         })
     }, [])
