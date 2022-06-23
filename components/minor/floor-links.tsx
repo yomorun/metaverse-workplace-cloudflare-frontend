@@ -1,12 +1,8 @@
-import Link from 'next/link'
 import cn from 'classnames'
+import Link from 'next/link'
 
 const FloorLinks = ({ currentPath = '/' }: { currentPath?: string }) => {
     const data = [
-        {
-            id: '2',
-            path: '/lectern',
-        },
         {
             id: '1',
             path: '/',
