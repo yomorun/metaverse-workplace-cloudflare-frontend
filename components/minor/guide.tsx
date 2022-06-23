@@ -32,7 +32,7 @@ const Guide = () => {
                 &nbsp; (
                 <a
                     className='ym-text-blue hover:opacity-80'
-                    href='https://github.com/yomorun/yomo-metaverse-workplace-nextjs'
+                    href='https://github.com/yomorun/metaverse-workplace-cloudflare-frontend'
                     target='_blank'
                     rel='noreferrer'
                 >

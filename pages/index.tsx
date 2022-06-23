@@ -1,17 +1,17 @@
-import dynamic from 'next/dynamic'
-import Head from 'next/head'
-import { useEffect } from 'react'
 import Cookies from 'js-cookie';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { useEffect } from 'react';
 
-import FloorLinks from '../components/minor/floor-links'
-import Guide from '../components/minor/guide'
-import IframePage from '../components/minor/iframe-page'
-import Sidebar from '../components/minor/sidebar'
+import FloorLinks from '../components/minor/floor-links';
+import Guide from '../components/minor/guide';
+import IframePage from '../components/minor/iframe-page';
+import Sidebar from '../components/minor/sidebar';
 
-import { useSetRecoilState } from 'recoil'
-import { iframePageState, locationState } from '../store/atom'
+import { useSetRecoilState } from 'recoil';
+import { iframePageState, locationState } from '../store/atom';
 
-import type { Area, Location, Page } from '../types'
+import type { Area, Location, Page } from '../types';
 
 const Scene = dynamic(() => import('../components/scene'), { ssr: false })
 
@@ -24,7 +24,7 @@ const Scene = dynamic(() => import('../components/scene'), { ssr: false })
 // }
 
 const Home: Page<Location> = () => {
-  const country =  Cookies.get('country') || "Local"
+  const country = Cookies.get('country') || "Local"
   const region = Cookies.get('region') || "us.x.yomo.dev"
   const setLocationState = useSetRecoilState(locationState)
   const setIframePageState = useSetRecoilState(iframePageState)
@@ -75,17 +75,9 @@ const Home: Page<Location> = () => {
           ]}
           onEnterCheckArea={(area: Area) => {
             console.log('[Enter Area]:', area)
-            setIframePageState({
-              isOpen: true,
-              iframeSrc: area.iframeSrc,
-            })
           }}
           onLeaveCheckArea={() => {
             console.log('[Leave Area]')
-            setIframePageState({
-              isOpen: false,
-              iframeSrc: '',
-            })
           }}
         />
         <FloorLinks currentPath='/' />
